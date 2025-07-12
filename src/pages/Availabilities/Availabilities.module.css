@@ -1,0 +1,296 @@
+.availabilities {
+  padding: 2rem 0;
+  min-height: 100vh;
+  background: #f7fafc;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.backLink {
+  display: inline-block;
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+.backLink:hover {
+  color: #5a67d8;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 0.5rem;
+}
+
+.specialization {
+  font-size: 1.2rem;
+  color: #4a5568;
+  font-weight: 500;
+}
+
+.dentistInfo {
+  margin-bottom: 3rem;
+}
+
+.infoCard {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.infoCard h3 {
+  color: #2d3748;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.infoCard p {
+  color: #4a5568;
+  margin: 0.5rem 0;
+  line-height: 1.6;
+}
+
+.availabilitySection {
+  margin-bottom: 3rem;
+}
+
+.availabilitySection h2 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 2rem;
+}
+
+.availabilityGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.availabilityCard {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.availabilityCard:hover {
+  transform: translateY(-5px);
+}
+
+.dayHeader h3 {
+  color: #2d3748;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.timeSlot {
+  margin-bottom: 1.5rem;
+}
+
+.timeSlot p {
+  color: #4a5568;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+}
+
+.slotCount {
+  color: #48bb78 !important;
+  font-size: 0.9rem !important;
+  font-weight: 500;
+}
+
+.bookButton {
+  background: #667eea;
+  color: white;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 500;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.bookButton:hover {
+  background: #5a67d8;
+  transform: translateY(-2px);
+}
+
+.noAvailability {
+  text-align: center;
+  padding: 3rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.noAvailability h3 {
+  color: #2d3748;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.noAvailability p {
+  color: #4a5568;
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+.debugInfo {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: #f7fafc;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.debugInfo p {
+  margin: 0.5rem 0;
+  color: #4a5568;
+}
+
+.debugInfo pre {
+  background: #2d3748;
+  color: #e2e8f0;
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.cta {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  text-align: center;
+}
+
+.cta h3 {
+  color: #2d3748;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.cta p {
+  color: #4a5568;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.contactInfo {
+  background: #f7fafc;
+  padding: 1rem;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.contactInfo p {
+  margin: 0.5rem 0;
+  color: #4a5568;
+}
+
+/* Loading State */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  color: #4a5568;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e2e8f0;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error State */
+.error {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #4a5568;
+}
+
+.error h2 {
+  color: #e53e3e;
+  margin-bottom: 1rem;
+}
+
+.retryButton,
+.backButton {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 1rem;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.retryButton:hover,
+.backButton:hover {
+  background: #5a67d8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 2rem;
+  }
+  
+  .availabilityGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .infoCard {
+    padding: 1.5rem;
+  }
+  
+  .availabilityCard {
+    padding: 1rem;
+  }
+} 

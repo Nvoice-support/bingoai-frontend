@@ -1,0 +1,234 @@
+.appointments {
+  padding: 2rem 0;
+  min-height: 100vh;
+  background: #f7fafc;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 1rem;
+}
+
+.header p {
+  font-size: 1.1rem;
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+.formContainer {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.error {
+  background: #fed7d7;
+  color: #c53030;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #feb2b2;
+  margin-bottom: 1rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.label {
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.input,
+.select,
+.textarea {
+  padding: 0.75rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  background: white;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Dentist Info */
+.dentistInfo {
+  background: #f7fafc;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 2px solid #e2e8f0;
+}
+
+.dentistInfo h3 {
+  margin: 0 0 1rem 0;
+  color: #2d3748;
+  font-size: 1.1rem;
+}
+
+.dentistCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dentistImage {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.dentistDetails h4 {
+  margin: 0 0 0.25rem 0;
+  color: #2d3748;
+  font-size: 1rem;
+}
+
+.dentistDetails p {
+  margin: 0.25rem 0;
+  color: #4a5568;
+  font-size: 0.9rem;
+}
+
+.submitButton {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: #5a67d8;
+  transform: translateY(-2px);
+}
+
+.submitButton:disabled {
+  background: #a0aec0;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Success State */
+.success {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 2rem;
+}
+
+.successContent {
+  text-align: center;
+  max-width: 500px;
+}
+
+.successIcon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.successContent h2 {
+  color: #2d3748;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.successContent p {
+  color: #4a5568;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.newAppointmentButton {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.newAppointmentButton:hover {
+  background: #5a67d8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 2rem;
+  }
+  
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+  
+  .formContainer {
+    padding: 1.5rem;
+  }
+  
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .dentistCard {
+    flex-direction: column;
+    text-align: center;
+  }
+} 
+
+.noSlots {
+  background: #fff3cd;
+  color: #856404;
+  padding: 15px;
+  border-radius: 6px;
+  border: 1px solid #ffeaa7;
+  margin: 10px 0;
+} 

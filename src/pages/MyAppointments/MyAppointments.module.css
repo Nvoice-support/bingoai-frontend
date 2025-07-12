@@ -1,0 +1,278 @@
+.myAppointments {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 30px;
+  text-align: center;
+}
+
+.header h1 {
+  margin: 0 0 10px 0;
+  font-size: 2.5rem;
+  font-weight: 300;
+}
+
+.header p {
+  margin: 0;
+  opacity: 0.9;
+  font-size: 1.1rem;
+}
+
+.searchSection {
+  padding: 30px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.searchForm {
+  display: flex;
+  gap: 15px;
+  align-items: end;
+}
+
+.inputGroup {
+  flex: 1;
+}
+
+.inputGroup label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+.phoneInput {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.phoneInput:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.searchButton {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.searchButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.searchButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.error {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  margin: 20px 30px;
+  border-radius: 8px;
+  border: 1px solid #f5c6cb;
+}
+
+.patientInfo {
+  padding: 20px 30px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.patientInfo h3 {
+  margin: 0 0 15px 0;
+  color: #333;
+}
+
+.patientDetails {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.patientDetails p {
+  margin: 0;
+  color: #666;
+}
+
+.patientDetails strong {
+  color: #333;
+}
+
+.noAppointments {
+  text-align: center;
+  padding: 40px 30px;
+  color: #666;
+}
+
+.noAppointments h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.appointmentsList {
+  padding: 30px;
+}
+
+.appointmentsList h3 {
+  margin: 0 0 20px 0;
+  color: #333;
+  font-size: 1.3rem;
+}
+
+.appointmentCard {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #e9ecef;
+}
+
+.appointmentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.appointmentDate h4 {
+  margin: 0 0 5px 0;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.appointmentTime {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.statusBadge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.statusScheduled {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.statusConfirmed {
+  background: #d1ecf1;
+  color: #0c5460;
+}
+
+.statusCompleted {
+  background: #d4edda;
+  color: #155724;
+}
+
+.statusCancelled {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.appointmentDetails {
+  margin-bottom: 15px;
+}
+
+.detailRow {
+  display: flex;
+  margin-bottom: 8px;
+  align-items: flex-start;
+}
+
+.label {
+  font-weight: 600;
+  color: #333;
+  min-width: 100px;
+  margin-right: 10px;
+}
+
+.value {
+  color: #666;
+  flex: 1;
+}
+
+.appointmentActions {
+  border-top: 1px solid #e9ecef;
+  padding-top: 15px;
+  text-align: right;
+}
+
+.cancelButton {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.cancelButton:hover {
+  background: #c82333;
+}
+
+@media (max-width: 768px) {
+  .container {
+    margin: 10px;
+    border-radius: 8px;
+  }
+  
+  .header {
+    padding: 20px;
+  }
+  
+  .header h1 {
+    font-size: 2rem;
+  }
+  
+  .searchForm {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .appointmentHeader {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .detailRow {
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .label {
+    min-width: auto;
+  }
+} 

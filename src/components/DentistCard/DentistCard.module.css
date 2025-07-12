@@ -1,0 +1,149 @@
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.imageContainer {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  color: white;
+}
+
+.specialization {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #2d3748;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.content {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.details {
+  margin-bottom: 1rem;
+}
+
+.experience {
+  margin: 0.5rem 0;
+  color: #4a5568;
+  font-size: 0.9rem;
+}
+
+.education {
+  margin: 0.5rem 0;
+  color: #718096;
+  font-size: 0.9rem;
+}
+
+.certifications {
+  margin: 0.5rem 0;
+  color: #48bb78;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.contact {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: #f7fafc;
+  border-radius: 8px;
+}
+
+.contact p {
+  margin: 0.25rem 0;
+  color: #4a5568;
+  font-size: 0.9rem;
+}
+
+.languages {
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  color: #4a5568;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.viewProfile,
+.bookAppointment {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  text-align: center;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.viewProfile {
+  background: transparent;
+  color: #667eea;
+  border: 2px solid #667eea;
+}
+
+.viewProfile:hover {
+  background: #667eea;
+  color: white;
+}
+
+.bookAppointment {
+  background: #667eea;
+  color: white;
+  border: 2px solid #667eea;
+}
+
+.bookAppointment:hover {
+  background: #5a67d8;
+  border-color: #5a67d8;
+}
+
+@media (max-width: 768px) {
+  .actions {
+    flex-direction: column;
+  }
+  
+  .content {
+    padding: 1rem;
+  }
+} 

@@ -1,0 +1,161 @@
+.contact {
+  padding: 2rem 0;
+  min-height: 100vh;
+  background: #f7fafc;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 1rem;
+}
+
+.header p {
+  font-size: 1.1rem;
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.infoSection h2,
+.emergencySection h2,
+.mapSection h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 1.5rem;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.infoCard {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.infoCard:hover {
+  transform: translateY(-5px);
+}
+
+.icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.infoCard h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 1rem;
+}
+
+.infoCard p {
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+.emergencySection {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.emergencySection p {
+  color: #4a5568;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.emergencyContact {
+  background: #fed7d7;
+  color: #c53030;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1.2rem;
+  margin: 1rem 0;
+  border: 2px solid #feb2b2;
+}
+
+.mapSection {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.mapPlaceholder {
+  background: #f7fafc;
+  border: 2px dashed #cbd5e0;
+  border-radius: 8px;
+  padding: 3rem;
+  text-align: center;
+}
+
+.mapContent span {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.mapContent p {
+  color: #4a5568;
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+.mapContent p:first-of-type {
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 2rem;
+  }
+  
+  .infoGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .emergencySection,
+  .mapSection {
+    padding: 1.5rem;
+  }
+  
+  .mapPlaceholder {
+    padding: 2rem;
+  }
+} 
