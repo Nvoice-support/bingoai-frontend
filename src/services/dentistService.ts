@@ -173,11 +173,11 @@ export const dentistService = {
   },
 
   // Update appointment status
-  async updateAppointmentStatus(appointmentId: string, status: Appointment['status']): Promise<void> {
+  async updateAppointmentStatus(appointmentId: string, status: 'scheduled' | 'confirmed' | 'cancelled' | 'completed' | 'expired'): Promise<void> {
     try {
       const appointmentRef = doc(db, 'appointments', appointmentId);
       await updateDoc(appointmentRef, {
-        status,
+        status: status,
         updated_at: new Date()
       });
     } catch (error) {

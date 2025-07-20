@@ -54,6 +54,8 @@ const MyAppointments: React.FC = () => {
         return styles.statusCompleted;
       case 'cancelled':
         return styles.statusCancelled;
+      case 'expired':
+        return styles.statusExpired;
       default:
         return styles.statusScheduled;
     }
@@ -69,8 +71,45 @@ const MyAppointments: React.FC = () => {
         return 'Completed';
       case 'cancelled':
         return 'Cancelled';
+      case 'expired':
+        return 'Expired';
       default:
         return 'Scheduled';
+    }
+  };
+
+  // Add function to check if appointment is expired
+  const isAppointmentExpired = (appointmentDate: string, appointmentTime: string): boolean => {
+    const appointmentDateTime = new Date(`${appointmentDate}T${appointmentTime}`);
+    const now = new Date();
+    return appointmentDateTime < now;
+  };
+
+  // Add function to update expired appointments
+  const updateExpiredAppointments = async (appointments: AppointmentWithDetails[]) => {
+    const updatedAppointments = [...appointments];
+    let hasUpdates = false;
+
+    for (let i = 0; i < updatedAppointments.length; i++) {
+      const appointment = updatedAppointments[i];
+      
+      // Only check appointments that are not already expired, cancelled, or completed
+      if (appointment.status === 'scheduled' || appointment.status === 'confirmed') {
+        if (isAppointmentExpired(appointment.appointment_date, appointment.appointment_time)) {
+          // Update the appointment status to expired in the database
+          try {
+            await dentistService.updateAppointmentStatus(appointment.id, 'expired');
+            updatedAppointments[i] = { ...appointment, status: 'expired' };
+            hasUpdates = true;
+          } catch (error) {
+            console.error('Error updating expired appointment:', error);
+          }
+        }
+      }
+    }
+
+    if (hasUpdates) {
+      setAppointments(updatedAppointments);
     }
   };
 
@@ -109,7 +148,7 @@ const MyAppointments: React.FC = () => {
           return {
             ...appointment,
             patient: patientData,
-            dentist: dentist // This can be null, which is now allowed
+            dentist: dentist
           };
         })
       );
@@ -122,6 +161,10 @@ const MyAppointments: React.FC = () => {
       });
 
       setAppointments(appointmentsWithDetails);
+      
+      // Check and update expired appointments
+      await updateExpiredAppointments(appointmentsWithDetails);
+      
       setSearched(true);
       
     } catch (error) {
@@ -264,13 +307,14 @@ const MyAppointments: React.FC = () => {
                   )}
                 </div>
 
-                {appointment.status === 'scheduled' && (
+                {/* Only show cancel button for non-expired, non-cancelled, non-completed appointments */}
+                {(appointment.status === 'scheduled' || appointment.status === 'confirmed') && (
                   <div className={styles.appointmentActions}>
                     <button
                       onClick={() => handleCancelAppointment(
-                        appointment.id, 
-                        appointment.appointment_date, 
-                        appointment.appointment_time, 
+                        appointment.id,
+                        appointment.appointment_date,
+                        appointment.appointment_time,
                         appointment.dentist_id
                       )}
                       className={styles.cancelButton}

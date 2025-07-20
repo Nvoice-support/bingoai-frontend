@@ -200,6 +200,11 @@
   color: #721c24;
 }
 
+.statusExpired {
+  background: #e2e3e5;
+  color: #6c757d;
+}
+
 .appointmentDetails {
   margin-bottom: 15px;
 }

@@ -107,8 +107,19 @@ const BookAppointment: React.FC = () => {
     }));
   };
 
-  // Update the getDateForDay function to return a formatted date string
-  const getDateForDay = (dayOfWeek: string) => {
+  // Update to use database date instead of calculating
+  const getDateFromDatabase = (dayOfWeek: string): Date | null => {
+    // Find the first availability slot for this day that has a date
+    const slotWithDate = availabilities.find(
+      avail => avail.day_of_week === dayOfWeek && avail.date
+    );
+    
+    if (slotWithDate?.date) {
+      const [year, month, day] = slotWithDate.date.split('-').map(Number);
+      return new Date(year, month - 1, day);
+    }
+    
+    // Fallback to calculated date if no database date found
     const daysOfWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
     const today = new Date();
     const currentDay = today.getDay();
@@ -116,10 +127,7 @@ const BookAppointment: React.FC = () => {
     
     if (targetDay === -1) return null;
     
-    // Calculate days to add to get to the target day
     let daysToAdd = targetDay - currentDay;
-    
-    // If the target day is today or in the past, move to next week
     if (daysToAdd <= 0) {
       daysToAdd += 7;
     }
@@ -138,6 +146,7 @@ const BookAppointment: React.FC = () => {
     return `${year}-${month}-${day}`;
   };
 
+  // Update the handleBooking function to use database date
   const handleBooking = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -152,21 +161,25 @@ const BookAppointment: React.FC = () => {
     try {
       setSubmitting(true);
 
-      // Calculate the actual appointment date
-      const appointmentDate = getDateForDay(selectedDay!);
-      if (!appointmentDate) {
-        throw new Error('Could not calculate appointment date');
-      }
-
-      // Format the date as yyyy-mm-dd for the database
-      const appointmentDateFormatted = formatDateForDatabase(appointmentDate);
-
-      // Find the slot object to get its Firestore ID
+      // Find the slot object to get its Firestore ID and date
       const slotObj = availabilities.find(
         avail => avail.day_of_week === selectedDay && avail.slot_time === selectedSlot
       );
       
       if (!slotObj) throw new Error('Slot not found');
+
+      // Use the date from the database if available, otherwise calculate
+      let appointmentDateFormatted: string;
+      if (slotObj.date) {
+        appointmentDateFormatted = slotObj.date; // Use the date from database
+      } else {
+        // Fallback to calculated date
+        const appointmentDate = getDateFromDatabase(selectedDay!);
+        if (!appointmentDate) {
+          throw new Error('Could not calculate appointment date');
+        }
+        appointmentDateFormatted = formatDateForDatabase(appointmentDate);
+      }
 
       // Prepare patient data
       const patientData = {
@@ -184,14 +197,14 @@ const BookAppointment: React.FC = () => {
       // Get or create patient
       const patientId = await dentistService.getOrCreatePatient(patientData);
 
-      // Create appointment in Firestore with the actual date and patient ID
+      // Create appointment in Firestore with the database date
       const appointment = {
         dentist_id: dentist.id,
-        patient_id: patientId, // Use the actual patient ID
-        appointment_date: appointmentDateFormatted, // Use yyyy-mm-dd format
+        patient_id: patientId,
+        appointment_date: appointmentDateFormatted, // Use the date from database
         appointment_time: selectedSlot,
         procedure_type: "General Consultation",
-        status: "scheduled" as const, // Changed from 'pending' to 'scheduled'
+        status: "scheduled" as const,
         urgency_level: "routine" as const,
         notes: `Patient: ${patientInfo.firstName} ${patientInfo.lastName}\nPhone: ${patientInfo.phone}\nEmail: ${patientInfo.email}\nMedical History: ${patientInfo.medicalHistory}`,
       };
@@ -206,7 +219,20 @@ const BookAppointment: React.FC = () => {
       const existingPatient = await dentistService.getPatientByPhone(patientInfo.phone);
       const patientStatus = existingPatient ? 'existing patient' : 'new patient';
 
-      alert(`Appointment scheduled successfully for ${formatDate(appointmentDate)} at ${formatTime(selectedSlot)} with Dr. ${dentist.first_name} ${dentist.last_name}. ${patientStatus === 'new patient' ? 'New patient record created.' : 'Existing patient information used.'}`);
+      // Format the date for display with proper null checking
+      let displayDate: Date;
+      if (slotObj.date) {
+        const [year, month, day] = slotObj.date.split('-').map(Number);
+        displayDate = new Date(year, month - 1, day);
+      } else {
+        const calculatedDate = getDateFromDatabase(selectedDay!);
+        if (!calculatedDate) {
+          throw new Error('Could not determine appointment date');
+        }
+        displayDate = calculatedDate;
+      }
+
+      alert(`Appointment scheduled successfully for ${formatDate(displayDate)} at ${formatTime(selectedSlot)} with Dr. ${dentist.first_name} ${dentist.last_name}. ${patientStatus === 'new patient' ? 'New patient record created.' : 'Existing patient information used.'}`);
       setSelectedSlot(null);
       
       // Reset patient form
@@ -298,11 +324,14 @@ const BookAppointment: React.FC = () => {
             <p className={styles.dayInfo}>
               <strong>Day:</strong> {formatDayOfWeek(selectedDay!)}
             </p>
-            {selectedDay && (
-              <p className={styles.dateInfo}>
-                <strong>Date:</strong> {formatDate(getDateForDay(selectedDay)!)}
-              </p>
-            )}
+            {selectedDay && (() => {
+              const dateFromDB = getDateFromDatabase(selectedDay);
+              return dateFromDB ? (
+                <p className={styles.dateInfo}>
+                  <strong>Date:</strong> {formatDate(dateFromDB)}
+                </p>
+              ) : null;
+            })()}
           </div>
         </div>
 

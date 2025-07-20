@@ -47,7 +47,7 @@ export interface Appointment {
   appointment_date: string;
   appointment_time: string;
   procedure_type: string;
-  status: 'scheduled' | 'confirmed' | 'cancelled' | 'completed';
+  status: 'scheduled' | 'confirmed' | 'cancelled' | 'completed' | 'expired';
   urgency_level: 'routine' | 'urgent' | 'emergency';
   notes: string | null;
   created_at: Date;

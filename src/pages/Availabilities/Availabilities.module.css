@@ -99,11 +99,27 @@
   transform: translateY(-5px);
 }
 
+.dayHeader {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
 .dayHeader h3 {
   color: #2d3748;
   font-size: 1.3rem;
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.dateDisplay {
+  display: block;
+  color: #48bb78;
+  font-size: 1rem;
+  font-weight: 500;
+  background: rgba(72, 187, 120, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  margin-top: 0.5rem;
 }
 
 .timeSlot {

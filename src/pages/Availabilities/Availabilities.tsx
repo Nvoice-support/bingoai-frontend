@@ -71,25 +71,29 @@ const Availabilities: React.FC = () => {
     const availableSlots = availabilities.filter(avail => avail.is_available);
     console.log('Available slots:', availableSlots);
     
-    const groupedByDay: { [key: string]: string[] } = {};
+    const groupedByDay: { [key: string]: { slots: string[], date?: string } } = {};
     
     availableSlots.forEach(slot => {
       console.log('Processing slot:', slot);
       if (!groupedByDay[slot.day_of_week]) {
-        groupedByDay[slot.day_of_week] = [];
+        groupedByDay[slot.day_of_week] = { slots: [], date: slot.date };
       }
-      groupedByDay[slot.day_of_week].push(slot.slot_time);
+      groupedByDay[slot.day_of_week].slots.push(slot.slot_time);
+      // Use the date from the first slot for this day (they should all be the same)
+      if (!groupedByDay[slot.day_of_week].date && slot.date) {
+        groupedByDay[slot.day_of_week].date = slot.date;
+      }
     });
     
     // Sort time slots within each day
     Object.keys(groupedByDay).forEach(day => {
-      groupedByDay[day].sort();
+      groupedByDay[day].slots.sort();
     });
     
     console.log('Grouped by day:', groupedByDay);
     console.log('Days with availability:', Object.keys(groupedByDay));
     Object.keys(groupedByDay).forEach(day => {
-      console.log(`${day}: ${groupedByDay[day].length} slots - ${groupedByDay[day].join(', ')}`);
+      console.log(`${day}: ${groupedByDay[day].slots.length} slots - ${groupedByDay[day].slots.join(', ')} - Date: ${groupedByDay[day].date}`);
     });
     
     return groupedByDay;
@@ -117,6 +121,23 @@ const Availabilities: React.FC = () => {
     const finalEndTime = formatTime(`${finalEndHour.toString().padStart(2, '0')}:${finalEndMinute.toString().padStart(2, '0')}`);
     
     return `${startTime} - ${finalEndTime}`;
+  };
+
+  // Add this function to format the date from database
+  const formatDateFromDatabase = (dateString?: string) => {
+    if (!dateString) return '';
+    
+    try {
+      const [year, month, day] = dateString.split('-').map(Number);
+      const date = new Date(year, month - 1, day);
+      return date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric'
+      });
+    } catch (error) {
+      console.error('Error formatting date from database:', dateString, error);
+      return '';
+    }
   };
 
   if (loading) {
@@ -188,25 +209,31 @@ const Availabilities: React.FC = () => {
           {Object.keys(availableDays).length > 0 ? (
             <div className={styles.availabilityGrid}>
               {dayOrder.map(day => {
-                const slots = availableDays[day];
-                console.log(`Checking day ${day}:`, slots);
-                if (!slots || slots.length === 0) {
+                const dayData = availableDays[day];
+                console.log(`Checking day ${day}:`, dayData);
+                if (!dayData || dayData.slots.length === 0) {
                   console.log(`No slots for ${day}`);
                   return null;
                 }
                 
-                console.log(`Rendering card for ${day} with ${slots.length} slots`);
+                // Use the date from the database
+                const dateDisplay = formatDateFromDatabase(dayData.date);
+                
+                console.log(`Rendering card for ${day} with ${dayData.slots.length} slots, date: ${dayData.date}`);
                 return (
                   <div key={day} className={styles.availabilityCard}>
                     <div className={styles.dayHeader}>
                       <h3>{formatDayOfWeek(day)}</h3>
+                      {dateDisplay && (
+                        <span className={styles.dateDisplay}>{dateDisplay}</span>
+                      )}
                     </div>
                     <div className={styles.timeSlot}>
                       <p>
-                        <strong>Available:</strong> {getTimeRange(slots)}
+                        <strong>Available:</strong> {getTimeRange(dayData.slots)}
                       </p>
                       <p className={styles.slotCount}>
-                        <strong>Slots:</strong> {slots.length} available
+                        <strong>Slots:</strong> {dayData.slots.length} available
                       </p>
                     </div>
                     <Link 
